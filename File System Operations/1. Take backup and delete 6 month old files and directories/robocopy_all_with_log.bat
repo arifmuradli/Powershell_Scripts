@@ -5,7 +5,7 @@
 :: "/COPYALL": Copies all file information.
 :: "/R:3": Specifies the number of retries on failed copies (in this case, 3 retries).
 :: "/W:1": Specifies the wait time between retries (in this case, 1 second).
-:: Here $SourcePath should be replaced with local directory, for example "D:\Call Record", And $DestinationPatch should be replaced with remote destination directory, for example "\\Backup-Server\Call Record"
+:: Here $SourcePath should be replaced with local directory, for example "D:\SourceFolder", And $DestinationPatch should be replaced with remote destination directory, for example "\\Backup-Server\Call Record"
 robocopy "$SourcePath" "\\$DestinationPath" /E /COPYALL /R:3 /W:1 >> "%LogFile%"
 :: Wait for 5 seconds, this helps to monitor visually if script has started or not
 timeout /t 5 /nobreak > nul
