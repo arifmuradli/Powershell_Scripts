@@ -1,0 +1,25 @@
+# Import the Active Directory module
+Import-Module ActiveDirectory
+
+# Define the OU distinguished name (DN)
+$ouDN = "DC=domain,DC=local"
+
+# Retrieve the list of computer objects from the specified OU with LastLogonTimestamp and OperatingSystem
+$computers = Get-ADComputer -SearchBase $ouDN -Filter * -Properties LastLogonTimestamp, OperatingSystem | 
+             Where-Object { $_.OperatingSystem -like '*Windows*' } | 
+             Select-Object Name, OperatingSystem, LastLogonTimestamp
+
+# Convert the LastLogonTimestamp to a readable date format and store in $results
+$results = $computers | ForEach-Object {
+    [PSCustomObject]@{
+        Name               = $_.Name
+        OperatingSystem    = $_.OperatingSystem
+        LastLogonTimestamp = [DateTime]::FromFileTime($_.LastLogonTimestamp)
+    }
+} | Sort-Object LastLogonTimestamp
+
+# Export the results to a CSV file
+$results | Export-Csv -Path "C:\data\stale.csv" -NoTypeInformation
+
+# Output the results to the console (optional)
+$results
