@@ -1,3 +1,4 @@
+### Finally, you can safely delete stale computers
 # Import the Active Directory module
 Import-Module ActiveDirectory
 
