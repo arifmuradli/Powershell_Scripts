@@ -1,3 +1,4 @@
+### If you have multiple DC, you better use lastlogondate instead of last logon
 # Define the distinguished name (DN) of the specific OU you want to target
 $ouDN = "OU=RequiredOU,DC=domain,DC=local"
 
