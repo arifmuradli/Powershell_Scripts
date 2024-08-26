@@ -1,0 +1,25 @@
+### Before deleting stale servers, it is recommended to keep them disabled for a while
+# Define the distinguished name (DN) of the specific OU you want to target
+$ouDN = "OU=Disabled_Computers,DC=domain,DC=local"
+
+# Get the current date
+$currentDate = Get-Date
+
+# Calculate the date 6 months ago
+$sixMonthsAgo = $currentDate.AddMonths(-6)
+
+# Retrieve computer accounts from the specified OU with LastLogonDate 6 months ago or older
+$staleComputers = Get-ADComputer -Filter * -SearchBase $ouDN -Properties Name, DistinguishedName, LastLogonDate, Enabled, OperatingSystem |
+    Where-Object { $_.LastLogonDate -lt $sixMonthsAgo } |
+    Sort-Object LastLogonDate
+
+# Display the stale computers in a grid view and allow user selection
+$selectedComputers = $staleComputers | Out-GridView -Title "Select computers to disable" -OutputMode Multiple
+
+# Disable selected computers
+foreach ($computer in $selectedComputers) {
+    Disable-ADAccount -Identity $computer.DistinguishedName
+    Write-Host "Disabled $($computer.Name)"
+}
+
+Write-Host "Disable completed."
