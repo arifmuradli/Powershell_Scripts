@@ -1,0 +1,18 @@
+# Define the distinguished name (DN) of the specific OU you want to target
+$ouDN = "OU=RequiredOU,DC=domain,DC=local"
+
+# Get the current date
+$currentDate = Get-Date
+
+# Calculate the date 6 months ago
+$1yearsago = $currentDate.AddYears(-1)
+
+# Retrieve computer accounts from the specified OU with LastLogonDate 6 months ago or older
+$staleComputers = Get-ADComputer -Filter * -SearchBase $ouDN -Properties Name, DistinguishedName, LastLogonDate, Enabled |
+    Where-Object { $_.LastLogonDate -lt $1yearsAgo } |
+    Sort-Object LastLogonDate
+
+# Select the desired properties and export to CSV
+$staleComputers |
+    Select-Object Name, DistinguishedName, LastLogonDate, Enabled  |
+    Export-Csv C:\export\disabledcomputerswith1yearstale.csv
