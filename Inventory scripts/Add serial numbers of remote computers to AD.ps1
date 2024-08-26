@@ -1,3 +1,4 @@
+### This script should be run from the server that have access to all endpoints
 # Define the OU distinguished name
 $ouDN = "OU=Computers,DC=domain,DC=local"
 
