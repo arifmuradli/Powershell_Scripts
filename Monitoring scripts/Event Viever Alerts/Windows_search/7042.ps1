@@ -54,7 +54,7 @@ $Body = @"
 # Send the email
 Send-MailMessage -port 587 -To "xxx@xxx.az" `
                  -From "xxx@xxx.az" `
-                 -Subject "Latest Event 23 from Online Responder" `
+                 -Subject "Windows Search corrupted database" `
                  -Body $Body `
                  -bodyashtml `
                  -SmtpServer "mail.xxx.az"
