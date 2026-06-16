@@ -3,7 +3,7 @@
 Import-Module ActiveDirectory
 
 # Define the OU distinguished name (DN)
-$ouDN = "ou=Disabled Computers,OU=Recycle_users-computers,DC=accessbank,DC=local"
+$ouDN = "ou=Disabled Computers,OU=Recycle_users-computers,DC=domain,DC=local"
 
 # Calculate the date one year ago from today
 $oneYearAgo = (Get-Date).AddYears(-1)
