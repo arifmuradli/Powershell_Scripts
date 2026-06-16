@@ -2,7 +2,7 @@
 <Task version="1.2" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
   <RegistrationInfo>
     <Date>2024-01-01T21:53:19.8022733</Date>
-    <Author>ACCESSBANK\prtgalert</Author>
+    <Author>domain\user</Author>
     <URI>\Remove old call records</URI>
   </RegistrationInfo>
   <Triggers>
